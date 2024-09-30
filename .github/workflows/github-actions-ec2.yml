@@ -44,8 +44,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo apt-get update -y
-            sudo apt-get install -y tomcat9
-            sudo systemctl start tomcat9
-            sudo systemctl enable tomcat9
-            sudo mv ${{ secrets.TARGET_DIR }}/simple-webapp.war /var/lib/tomcat9/webapps/
-            sudo systemctl restart tomcat9
+            sudo apt-get install -y apache2
+            sudo systemctl start apache2
+            sudo systemctl enable apache2
+            sudo rm -rf /var/www/html/*  # Clear the directory
+            sudo mv ${{ secrets.TARGET_DIR }}/simple-webapp.war /var/www/html/
+            sudo systemctl restart apache2
